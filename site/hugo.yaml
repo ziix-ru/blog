@@ -1,0 +1,32 @@
+baseURL: "https://ziix.ru/"
+languageCode: "ru-ru"
+title: "Ziix Blog"
+theme: "PaperMod"
+
+params:
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  
+  # Меню
+menu:
+  main:
+    - identifier: categories
+      name: Категории
+      url: /categories/
+      weight: 10
+    - identifier: tags
+      name: Теги
+      url: /tags/
+      weight: 20
+
+# Настройки главной страницы
+homeInfoParams:
+  Title: "Привет, я Ziix 👋"
+  Content: "Добро пожаловать в мой блог. Здесь я пишу про технологии, девопс и Matrix."
+
+# Чтобы посты отображались на главной
+paginate: 5
