@@ -34,11 +34,3 @@ jobs:
 
             # 5. Запускаем пересборку сайта
             docker restart hugo-builder
-
-            # 6. Ждем пару секунд и правим права для Nginx (на shared папку)
-            sleep 5
-            # Тут нужен sudo. Если попросит пароль - деплой упадет. 
-            # Лучше настроить Ansible так, чтобы shared папка была 777 или общей группы.
-            # Но пока попробуем хак с docker exec, который работает от root
-            docker exec hugo-builder chown -R 1000:1000 /dest
-            docker exec hugo-builder chmod -R 755 /dest
