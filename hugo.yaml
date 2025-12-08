@@ -2,45 +2,61 @@ baseURL: "https://ziix.ru/"
 title: "Ziix Blog"
 theme: "PaperMod"
 
-# Настройка мультиязычности
-defaultContentLanguage: ru
-defaultContentLanguageInSubdir: false # ru будет в корне, en будет в /en/
+# --- Настройки мультиязычности ---
+# Основной язык - Английский (будет в корне /)
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: false
 
 languages:
-  ru:
-    languageName: "🇷🇺" # Или "Русский"
-    weight: 1
-    title: "Ziix Blog"
-    params:
-      homeInfoParams:
-        Title: "Привет, я Ziix 👋"
-        Content: "Добро пожаловать в мой блог про DevOps и технологии."
-
   en:
-    languageName: "🇺🇸" # Или "English"
-    weight: 2
-    title: "Ziix Blog"
+    languageName: "🇺🇸"  # Название кнопки в меню
+    weight: 1           # Порядок сортировки (1 - самый важный)
+    title: "Ziix Blog"  # Заголовок сайта на EN
     params:
       homeInfoParams:
         Title: "Hi, I'm Ziix 👋"
-        Content: "Welcome to my blog about DevOps and tech."
+        Content: "Welcome to my DevOps engineering blog. Here I share tutorials about Docker, Ansible, and Linux."
+        # Можно добавить ссылки на соцсети тут же, если захочешь
+    # Меню на Английском
+    menu:
+      main:
+        - identifier: categories
+          name: Categories
+          url: /categories/
+          weight: 10
+        - identifier: tags
+          name: Tags
+          url: /tags/
+          weight: 20
 
-# Остальные настройки PaperMod
+  ru:
+    languageName: "🇷🇺"
+    weight: 2
+    title: "Блог Ziix"  # Заголовок сайта на RU
+    params:
+      homeInfoParams:
+        Title: "Привет, я Ziix 👋"
+        Content: "Добро пожаловать в мой инженерный блог. Пишу про Docker, Ansible, Linux и автоматизацию."
+    # Меню на Русском
+    menu:
+      main:
+        - identifier: categories
+          name: Категории
+          url: /categories/
+          weight: 10
+        - identifier: tags
+          name: Теги
+          url: /tags/
+          weight: 20
+
+# --- Общие параметры PaperMod ---
 params:
-  defaultTheme: auto
+  defaultTheme: auto    # Автоматически темная/светлая тема (как в системе)
   ShowReadingTime: true
   ShowShareButtons: true
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
 
-menu:
-  main:
-    - identifier: categories
-      name: Категории
-      url: /categories/
-      weight: 10
-    - identifier: tags
-      name: Теги
-      url: /tags/
-      weight: 20
+  # Настройки главной страницы (сколько постов показывать)
+  paginate: 5
