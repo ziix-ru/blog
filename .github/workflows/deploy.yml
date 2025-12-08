@@ -1,0 +1,44 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main  # Срабатывать только при пуше в main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute SSH commands on remote server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # 1. Переходим в папку сайта
+            cd /srv/docker/hugo/site
+
+            # 2. Скачиваем обновления кода
+            # (Git использует токен из URL, который настроил Ansible)
+            git pull origin main
+
+            # 3. Обновляем тему (на всякий случай)
+            git submodule update --remote --merge
+
+            # 4. Исправляем права (чтобы билдер мог писать)
+            # sudo нужен, если файлы принадлежат другому юзеру, 
+            # но deploy должен быть в группе sudoers без пароля для этой команды
+            # Пока попробуем без sudo, если папка принадлежит deploy
+
+            # 5. Запускаем пересборку сайта
+            docker restart hugo-builder
+
+            # 6. Ждем пару секунд и правим права для Nginx (на shared папку)
+            sleep 5
+            # Тут нужен sudo. Если попросит пароль - деплой упадет. 
+            # Лучше настроить Ansible так, чтобы shared папка была 777 или общей группы.
+            # Но пока попробуем хак с docker exec, который работает от root
+            docker exec hugo-builder chown -R 1000:1000 /dest
+            docker exec hugo-builder chmod -R 755 /dest
