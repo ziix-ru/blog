@@ -5,6 +5,11 @@ draft: false
 description: "О том, как React и SPA убили производительность, почему правило 14KB — это база, и как Hugo возвращает здравый смысл в веб-разработку."
 tags: ["hugo", "react", "performance", "rant", "optimization"]
 categories: ["Web", "DevOps", "Opinion"]
+
+cover:
+    image: "https://cdn.buttercms.com/O7wz509NSOOyixCnLn1x"
+    alt: "Сравнение веса сайтов"
+    relative: false
 ---
 
 Мы свернули не туда.

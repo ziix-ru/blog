@@ -1,8 +1,9 @@
-/* 
-   СУПЕР-УНИВЕРСАЛЬНАЯ ШАПКА
-   Работает с любой темой автоматически, используя переменные Hugo.
-*/
+/* ==========================================================================
+   CUSTOM DESIGN FOR ZIIX.RU (HUGO PAPERMOD)
+   Includes: Sticky Header, Compact Home, Grid Layout, Transparent Comments
+   ========================================================================== */
 
+/* --- 1. СУПЕР-УНИВЕРСАЛЬНАЯ ШАПКА (STICKY HEADER) --- */
 .header {
     position: sticky;
     top: 0;
@@ -12,51 +13,35 @@
     transition: transform 0.25s ease-out;
 }
 
-/* 
-   ХИТРОСТЬ: Вместо background-color мы используем псевдо-элемент ::before.
-   Это позволяет взять цвет темы (var(--theme)) и сделать его полупрозрачным (opacity),
-   не ломая прозрачность текста.
-*/
+/* Контейнер навигации с "умным" фоном через ::before */
 .header .nav {
-    position: relative; /* Чтобы позиционировать ::before внутри */
+    position: relative;
     max-width: calc(var(--main-width) + var(--gap) * 2);
     margin: 0 auto;
     padding: 6px 18px;
     border-radius: 0 0 10px 10px;
     border-top: none;
-    
-    /* Убираем обычный фон */
     background: transparent !important;
     
-    /* Размытие */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     
-    /* Граница (используем var(--border) от PaperMod - она сама меняется!) */
     border: 1px solid var(--border);
     border-top: none;
-    
-    overflow: hidden; /* Чтобы фон не вылезал за скругления */
+    overflow: hidden;
 }
 
-/* Полупрозрачная подложка цвета темы */
+/* Полупрозрачная подложка цвета текущей темы */
 .header .nav::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1; /* Кладем ПОД текст */
-    
-    /* БЕРЕМ ЦВЕТ ТЕМЫ АВТОМАТИЧЕСКИ */
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
     background-color: var(--theme);
-    
-    /* Делаем его полупрозрачным */
     opacity: 0.85; 
 }
 
-/* Скрытие при скролле */
+/* Скрытие шапки при скролле (JS класс) */
 .header.header--hidden {
     transform: translateY(-110%);
 }
@@ -64,89 +49,107 @@
 .logo { margin-right: auto; }
 #menu { margin-left: auto; }
 
-/* === КОМПАКТНАЯ ГЛАВНАЯ === */
 
-/* Уменьшаем отступ сверху у основного контейнера */
+/* --- 2. КОМПАКТНЫЙ БЛОК ПРИВЕТСТВИЯ (FIRST ENTRY) --- */
 .main {
-    margin-top: 20px !important; /* Было больше */
+    margin-top: 20px !important;
 }
 
-/* Настраиваем блок приветствия (first-entry) */
 .first-entry {
-    min-height: auto !important; /* Убираем растягивание на пол-экрана */
-    margin-bottom: 20px !important; /* Отступ до постов */
-    padding: 20px !important; /* Внутренние отступы поменьше */
-    
-    /* Делаем флекс, чтобы контент был компактным */
+    min-height: auto !important;
+    margin-bottom: 20px !important;
+    padding: 20px !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-/* Уменьшаем заголовок "Привет, я ziix" */
 .first-entry h1 {
     margin-top: 0 !important;
-    font-size: 28px !important; /* Чуть меньше гигантизма */
+    font-size: 28px !important;
 }
 
-/* Уменьшаем отступ у текста описания */
 .first-entry .entry-content {
     margin: 10px 0 !important;
     font-size: 16px !important;
 }
 
-/* Соц иконки покомпактнее */
 .first-entry .social-icons {
     margin-top: 10px !important;
 }
 
-/* Включаем Grid только для десктопа (ширина > 768px) */
+
+/* --- 3. GRID LAYOUT ДЛЯ ПОСТОВ (DESKTOP) --- */
 @media screen and (min-width: 768px) {
-    /* 
-       Находим родителя постов. В PaperMod это <main class="main">.
-       Но там лежит и .first-entry (приветствие), и .post-entry (посты), и .pagination.
-       CSS Grid тут будет сложно настроить, чтобы приветствие было на всю ширину.
-    */
-    
-    /* 
-       ПОПЫТКА С FLEX-WRAP (Псевдо-грид) 
-       Это безопаснее для структуры PaperMod
-    */
     .main {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px; /* Расстояние между карточками */
-        align-items: flex-start; /* Чтобы карточки не растягивались по высоте */
+        gap: 20px;
+        align-items: flex-start;
     }
 
-    /* Приветствие на всю ширину (100%) */
+    /* Приветствие на всю ширину */
     .first-entry {
         width: 100%;
-        margin-bottom: 0 !important; /* Отступ контролирует gap родителя */
+        margin-bottom: 0 !important;
         flex: 0 0 100%;
     }
 
-    /* Посты - по 50% минус половина отступа */
+    /* Карточки постов - по 2 в ряд */
     .post-entry {
-        width: calc(50% - 10px); 
+        width: calc(50% - 10px);
         margin-bottom: 0 !important;
-        
-        /* Делаем карточки одинаковой высоты */
         display: flex;
         flex-direction: column;
-        height: 100%; 
-        min-height: 280px; /* Чтобы не были сплюснутыми */
+        height: 100%;
+        min-height: 280px;
+        transition: transform 0.2s; /* Анимация наведения */
+    }
+    
+    /* Эффект нажатия/наведения на карточку */
+    .post-entry:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Легкая тень */
+        border-color: var(--primary); /* Подсветка рамки */
     }
 
-    /* Внутри карточки контент растягиваем */
     .post-entry .entry-content {
         flex-grow: 1;
     }
 
-    /* Пагинация (кнопки Next/Prev) на всю ширину */
+    /* Пагинация на всю ширину */
     .pagination {
         width: 100%;
         flex: 0 0 100%;
         margin-top: 20px;
     }
+}
+
+
+/* --- 4. КРАСИВЫЕ ОБЛОЖКИ (COVER IMAGES) --- */
+.post-entry .entry-cover {
+    margin-bottom: 0 !important;
+    overflow: hidden;
+    border-radius: var(--radius) var(--radius) 0 0; /* Скругляем верх */
+}
+
+/* Сама картинка */
+.post-entry .entry-cover img {
+    width: 100%;
+    height: 180px; /* Фиксируем высоту для ровной сетки */
+    object-fit: cover; /* Обрезаем лишнее, сохраняя пропорции */
+    transition: transform 0.5s ease;
+}
+
+/* Зум картинки при наведении */
+.post-entry:hover .entry-cover img {
+    transform: scale(1.05);
+}
+
+
+/* --- 5. КОММЕНТАРИИ (GISCUS) --- */
+.giscus, .giscus-frame {
+    /* Убираем фон контейнера, чтобы он не был белым/черным пятном */
+    background: transparent !important;
+    margin-top: 40px;
 }
