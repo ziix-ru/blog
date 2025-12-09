@@ -183,3 +183,7 @@ body {
     background: transparent !important;
     margin-top: 40px;
 }
+
+.post-entry .entry-header { outline: 1px solid red; }
+.post-entry .entry-meta   { outline: 1px solid green; }
+.post-entry .entry-content{ outline: 1px solid blue; }
