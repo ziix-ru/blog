@@ -99,3 +99,54 @@
 .first-entry .social-icons {
     margin-top: 10px !important;
 }
+
+/* Включаем Grid только для десктопа (ширина > 768px) */
+@media screen and (min-width: 768px) {
+    /* 
+       Находим родителя постов. В PaperMod это <main class="main">.
+       Но там лежит и .first-entry (приветствие), и .post-entry (посты), и .pagination.
+       CSS Grid тут будет сложно настроить, чтобы приветствие было на всю ширину.
+    */
+    
+    /* 
+       ПОПЫТКА С FLEX-WRAP (Псевдо-грид) 
+       Это безопаснее для структуры PaperMod
+    */
+    .main {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Расстояние между карточками */
+        align-items: flex-start; /* Чтобы карточки не растягивались по высоте */
+    }
+
+    /* Приветствие на всю ширину (100%) */
+    .first-entry {
+        width: 100%;
+        margin-bottom: 0 !important; /* Отступ контролирует gap родителя */
+        flex: 0 0 100%;
+    }
+
+    /* Посты - по 50% минус половина отступа */
+    .post-entry {
+        width: calc(50% - 10px); 
+        margin-bottom: 0 !important;
+        
+        /* Делаем карточки одинаковой высоты */
+        display: flex;
+        flex-direction: column;
+        height: 100%; 
+        min-height: 280px; /* Чтобы не были сплюснутыми */
+    }
+
+    /* Внутри карточки контент растягиваем */
+    .post-entry .entry-content {
+        flex-grow: 1;
+    }
+
+    /* Пагинация (кнопки Next/Prev) на всю ширину */
+    .pagination {
+        width: 100%;
+        flex: 0 0 100%;
+        margin-top: 20px;
+    }
+}
