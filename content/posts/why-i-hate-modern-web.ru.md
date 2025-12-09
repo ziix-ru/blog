@@ -7,7 +7,7 @@ tags: ["hugo", "react", "performance", "rant", "optimization"]
 categories: ["Web", "DevOps", "Opinion"]
 
 cover:
-    image: "https://cdn.buttercms.com/O7wz509NSOOyixCnLn1x"
+    image: "https://wallpaperaccess.com/full/2918041.jpg"
     alt: "Сравнение веса сайтов"
     relative: false
 ---
