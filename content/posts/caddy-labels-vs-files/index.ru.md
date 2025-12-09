@@ -1,5 +1,5 @@
 ---
-title: "Связываем Caddy и Docker: Почему Labels победили Config Files"
+title: "Caddy + Docker: Почему Labels победили Config Files"
 date: 2025-12-09T03:10:00+03:00
 draft: false
 description: "В битве между чистотой Ansible и удобством Docker я выбрал второе. Рассказываю, как построить безопасную атомарную инфраструктуру с Caddy и Socket Proxy."

@@ -1,0 +1,66 @@
+---
+title: "14KB Rule: Static Sites vs React Bloat"
+date: 2025-12-09T05:30:00+03:00
+draft: false
+description: "Why the first 14KB determine your site's fate, how React and SPAs became bloated, and why a 3.5KB Hugo blog runs circles around them."
+tags: ["hugo", "react", "performance", "rant", "optimization"]
+categories: ["Web", "DevOps", "Opinion"]
+---
+
+The modern web is broken, but the problem isn't where everyone thinks it is. It's not about slow internet. It's about physics.
+
+We are used to measuring sites in megabytes, but the real battle for performance happens in the first **14 kilobytes**. This is the unspoken rule that determines whether your site loads instantly or forces the user to stare at a white screen.
+
+And in this battle, React frameworks, for all their power, are losing with a crushing score.
+
+### Fighters in the Ring: Bloat vs Static
+
+On one side, we have the typical blog site on Next.js or Gatsby. Even an empty project (`create-app`) weighs **150-200 KB** after building. This is our "Bloat"—powerful, complex, but sluggish.
+
+On the other side is my blog on Hugo. This is a Static Site Generator (SSG). To find out its real weight, I didn't trust DevTools but used `curl`—a tool that shows what actually flies through the network:
+
+```
+
+curl -H "Accept-Encoding: gzip" -so /dev/null -w '%{size_download}\n' https://ziix.ru
+
+# Result: 3563
+
+```
+
+**3.5 kilobytes.** The entire main page with styles, content, and layout.
+
+But why is the difference between 3.5 KB and 150 KB so critical?
+
+### The Rules of Engagement: TCP Slow Start Physics (The 14KB Rule)
+
+When your browser connects to a server, neither side knows how good the connection channel is. Therefore, the TCP protocol uses an algorithm called **"Slow Start"**.
+
+The server doesn't dump the entire site on you at once. It sends a starting "burst" of data—usually **10 TCP segments**, which equals roughly **14 KB**.
+
+And here is where the fun begins:
+
+1.  **Static Site (< 14KB):** My 3.5 KB blog fits completely into this first burst. It arrives in a single round trip (RTT), and the browser renders it instantly. **This is a knockout in the first round.**
+
+2.  **React Site (> 14KB):** 150 KB doesn't fit. The server sends the first 14 KB, stops, and waits for an answer from the browser ("ACK, received everything"). Only then does it increase the "window" and send the next portion. This ping-pong creates latency, which on mobile networks turns into seconds of waiting.
+
+### The "Optimization" Trap: What About Lazy Loading?
+
+"But we split the code (code splitting) and use lazy loading!"—any React developer will say.
+
+Let's be honest. This is not a solution; it is an illusion.
+
+1.  **The Unbreakable Minimum:** For your "lazy" component to work, the browser first needs to download and execute the **React runtime** itself. This is already **~40 KB** gzipped. You lost the battle for 14 KB before you even started it.
+
+2.  **Payment in Installments:** Lazy Loading doesn't remove the "bloat," it just spreads it out over time. The user will still download hundreds of kilobytes of JS—just not all at once, but in pieces as they click through the site.
+
+3.  **Engineering Madness:** You create a complex architecture with loaders, skeletons, and hydration state management just to display static text. You are heroically fighting a problem you created yourself.
+
+### Verdict
+
+For complex web applications, React is indispensable. But for blogs, landing pages, and content sites, using it means building a tank to go buy bread.
+
+The **Hugo + Nginx** stack serves pre-generated, clean HTML. It doesn't think, it doesn't render; it just fires the ready result at the user.
+
+The result is a site that respects the laws of physics and opens before the user lifts their finger off the screen.
+
+Stop fighting the "White Screen of Death." Start respecting your users. And physics.
