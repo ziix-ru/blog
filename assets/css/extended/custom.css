@@ -103,7 +103,7 @@ body {
     }
 
     .post-entry .entry-content {
-        padding: 2px 18px 18px 18px;
+        padding: 8px 18px 18px 18px;
         font-size: 14px;
         line-height: 1.5;
         color: var(--secondary);
