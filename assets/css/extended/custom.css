@@ -84,7 +84,7 @@
     .main {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 24px; /* Чуть больше воздуха между карточками */
         align-items: flex-start;
     }
 
@@ -93,36 +93,73 @@
         width: 100%;
         margin-bottom: 0 !important;
         flex: 0 0 100%;
+        /* Убираем рамку у приветствия, делаем его чистым текстом */
+        background: transparent !important;
+        border: none !important;
+        padding-left: 0 !important;
     }
 
-    /* Карточки постов - по 2 в ряд */
+    /* Карточки постов */
     .post-entry {
-        width: calc(50% - 10px);
+        width: calc(50% - 12px); /* Половина минус половина gap */
         margin-bottom: 0 !important;
         display: flex;
         flex-direction: column;
         height: 100%;
-        min-height: 280px;
-        transition: transform 0.2s; /* Анимация наведения */
+        min-height: 320px;
+        
+        /* Скругление как на референсе (посильнее) */
+        border-radius: 16px; 
+        
+        /* Убираем явную границу, добавляем легкий фон */
+        border: 1px solid var(--border); /* Или border: none; если хочешь совсем чисто */
+        background: var(--entry);
+        
+        overflow: hidden; /* Чтобы картинка не вылезала */
+        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     
-    /* Эффект нажатия/наведения на карточку */
+    /* Эффект наведения */
     .post-entry:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* Легкая тень */
-        border-color: var(--primary); /* Подсветка рамки */
+        transform: translateY(-6px); /* Всплытие */
+        /* Легкая тень при наведении */
+        box-shadow: 0 12px 24px -10px rgba(0,0,0,0.15); 
     }
 
     .post-entry .entry-content {
         flex-grow: 1;
+        padding: 24px; /* Больше отступов внутри */
+    }
+    
+    .post-entry .entry-header {
+        margin-bottom: 12px;
     }
 
-    /* Пагинация на всю ширину */
     .pagination {
         width: 100%;
         flex: 0 0 100%;
-        margin-top: 20px;
+        margin-top: 30px;
     }
+}
+
+/* --- 4. КРАСИВЫЕ ОБЛОЖКИ (COVER IMAGES) КАК НА СКРИНЕ --- */
+.post-entry .entry-cover {
+    margin-bottom: 0 !important;
+    overflow: hidden;
+    border-radius: 0; /* Скругление задается родителем (.post-entry) */
+}
+
+/* Сама картинка */
+.post-entry .entry-cover img {
+    width: 100%;
+    height: 200px; /* Чуть выше */
+    object-fit: cover; 
+    transition: transform 0.5s ease;
+}
+
+/* Зум картинки */
+.post-entry:hover .entry-cover img {
+    transform: scale(1.03); /* Очень легкий зум */
 }
 
 
