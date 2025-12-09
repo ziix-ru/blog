@@ -1,6 +1,6 @@
 ---
 title: "Связываем Caddy и Docker: Почему Labels победили Config Files"
-date: 2025-12-08T06:10:00+03:00
+date: 2025-12-09T03:10:00+03:00
 draft: false
 description: "В битве между чистотой Ansible и удобством Docker я выбрал второе. Рассказываю, как построить безопасную атомарную инфраструктуру с Caddy и Socket Proxy."
 tags: ["docker", "caddy", "ansible", "security", "architecture"]
@@ -46,4 +46,35 @@ categories: ["DevOps", "HomeLab"]
 #### Конфиг безопасности
 
 Я разрешаю только `GET` запросы к `containers` и `events`.
+
+```
+services:
+socket-proxy:
+image: wollomatic/socket-proxy:1
+command:
+- '-loglevel=info'
+- '-allowGET=/v1\..{1,2}/(version|containers/.*|events.*)' \# ✅ Разрешаем только чтение
+- '-watchdoginterval=3600'
+volumes:
+- /var/run/docker.sock:/var/run/docker.sock:ro
+networks:
+- caddy-network
+```
+
+Даже если Caddy взломают, хакер упрется в этот фильтр. Он не сможет ни создать новый контейнер, ни убить существующий, ни прочитать секреты.
+
+### Итог
+
+Да, писать JSON-конфиги для аутентификации внутри YAML-лейблов — это то еще удовольствие. Выглядит это порой жутковато:
+
+```
+labels:
+caddy.route.0_forward_auth.copy_headers: "Remote-User Remote-Name..."
+```
+
+Но это плата за **атомарность**. Я могу выкинуть роль Amnezia из плейбука, и мой Caddy автоматически перестанет обслуживать этот домен, без "мусорных" файлов в конфигах.
+
+Для моей коллекции (и для моего душевного спокойствия при поддержке этого стека) это оказалось решающим фактором.
+
+А вы на какой стороне: "Чистые файлы" или "Умные контейнеры"?
 
