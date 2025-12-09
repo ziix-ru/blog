@@ -70,11 +70,12 @@ body {
         width: 100% !important;
         background: var(--entry);
         border: 1px solid var(--border);
-        border-radius: 14px;
+        border-radius: 16px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
+        padding: 14px 16px 14px 16px;   /* ЕДИНЫЙ ПАДДИНГ КАРТОЧКИ */
     }
 
     .post-entry:hover {
@@ -82,12 +83,11 @@ body {
         box-shadow: 0 10px 24px -6px rgba(0,0,0,0.4);
     }
 
-    /* Картинка */
+    /* Картинка: та же левая граница, что и текст */
     .post-entry .entry-cover {
-        margin: 0 !important;
-        border-radius: 0;
+        margin: 0 0 10px 0;
+        border-radius: 12px;
         overflow: hidden;
-        flex-shrink: 0;
     }
     
     .post-entry .entry-cover img {
@@ -99,12 +99,13 @@ body {
     }
 
     .post-entry:hover .entry-cover img {
-        transform: scale(1.03);
+        transform: scale(1.02);
     }
 
-    /* Заголовок + meta: очень плотные отступы */
+    /* Заголовок и meta без внутренних паддингов — выравнены по паддингу карточки */
     .post-entry .entry-header {
-        padding: 12px 20px 0 20px;
+        padding: 0;
+        margin: 0 0 2px 0;
     }
 
     .post-entry h2 {
@@ -126,13 +127,13 @@ body {
         margin-top: 4px;
     }
 
-    /* Текст: близко к meta, максимум компактный */
+    /* Текст: начинается ровно там же, где и картинка/заголовок */
     .post-entry .entry-content {
-        padding: 6px 20px 14px 20px;
+        padding: 6px 0 0 0;
         font-size: 13px;
         line-height: 1.45;
         color: var(--secondary);
-        max-height: 38px;              /* чуть меньше, чем было, ещё компактнее */
+        max-height: 38px;
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -160,14 +161,17 @@ body {
     
     .post-entry {
         margin-bottom: 18px !important;
-        border-radius: 14px;
+        border-radius: 16px;
         border: 1px solid var(--border);
         background: var(--entry);
         overflow: hidden;
+        padding: 12px 14px 14px 14px;
     }
     
     .post-entry .entry-cover {
-        margin: 0 !important;
+        margin: 0 0 10px 0;
+        border-radius: 12px;
+        overflow: hidden;
     }
     
     .post-entry .entry-cover img {
@@ -177,7 +181,8 @@ body {
     }
     
     .post-entry .entry-header {
-        padding: 14px 16px 0 16px;
+        padding: 0;
+        margin: 0 0 2px 0;
     }
     
     .post-entry h2 {
@@ -197,7 +202,7 @@ body {
     }
     
     .post-entry .entry-content {
-        padding: 6px 16px 14px 16px;
+        padding: 6px 0 0 0;
         font-size: 13px;
         line-height: 1.45;
     }
@@ -213,7 +218,3 @@ body {
     background: transparent !important;
     margin-top: 40px;
 }
-
-.post-entry .entry-header { outline: 1px solid red; }
-.post-entry .entry-meta   { outline: 1px solid green; }
-.post-entry .entry-content{ outline: 1px solid blue; }
