@@ -1,4 +1,8 @@
-/* === БАЗА: шрифт и сглаживание === */
+/* ==========================================================================
+   ZIIX.RU CARD GRID (INSPIRED BY PRIAM)
+   ========================================================================== */
+
+/* Шрифт Inter */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body {
@@ -6,16 +10,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* === Шапка (можно оставить как есть, если нравится) === */
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    margin-bottom: 32px !important;
-    background: transparent !important;
-}
-
-/* === Приветственный блок === */
+/* Приветственный блок */
 .main { margin-top: 32px !important; }
 
 .first-entry {
@@ -38,7 +33,7 @@ body {
     max-width: 620px;
 }
 
-/* === Сетка карточек на десктопе === */
+/* === Десктоп: сетка 2×2 и карточки === */
 @media (min-width: 768px) {
     .main {
         display: flex;
@@ -55,7 +50,6 @@ body {
 
     .pagination { margin-top: 32px; }
 
-    /* Карточка поста */
     .post-entry {
         width: calc(50% - 12px);
         margin-bottom: 0 !important;
@@ -76,7 +70,7 @@ body {
         box-shadow: 0 18px 40px -18px rgba(0,0,0,0.5);
     }
 
-    /* Картинка СВЕРХУ */
+    /* Картинка сверху */
     .post-entry .entry-cover {
         margin: 0 !important;
         border-radius: 0;
@@ -95,9 +89,9 @@ body {
         transform: scale(1.04);
     }
 
-    /* Заголовок и текст */
+    /* Заголовок + мета */
     .post-entry .entry-header {
-        padding: 20px 24px 8px 24px;
+        padding: 20px 24px 4px 24px;
     }
 
     .post-entry h2 {
@@ -105,8 +99,19 @@ body {
         line-height: 1.3;
         font-weight: 700;
         letter-spacing: -0.03em;
+        margin: 0 0 6px 0;
     }
 
+    .post-entry .entry-meta {
+        font-size: 13px;
+        color: #a1a1aa;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        opacity: 0.9;
+    }
+
+    /* Описание */
     .post-entry .entry-content {
         padding: 0 24px 20px 24px;
         font-size: 15px;
@@ -114,18 +119,18 @@ body {
         color: var(--secondary);
 
         display: -webkit-box;
-        -webkit-line-clamp: 3; /* максимум 3 строки, как у него */
+        -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
-    /* Дату/мета можно скрыть, чтобы не мешала */
+    /* Старый футер скрываем */
     .post-entry .entry-footer {
         display: none;
     }
 }
 
-/* Мобилка: просто аккуратные карточки списком */
+/* === Мобилка: аккуратный список === */
 @media (max-width: 767px) {
     .post-entry {
         margin-bottom: 20px !important;
@@ -151,7 +156,9 @@ body {
         padding: 16px 18px;
     }
 
-    .post-entry .entry-footer { display: none; }
+    .post-entry .entry-footer {
+        display: none;
+    }
 }
 
 /* Комменты */
