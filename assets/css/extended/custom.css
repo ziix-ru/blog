@@ -17,7 +17,7 @@ body {
     font-family: 'Inter', -apple-system, sans-serif !important;
     -webkit-font-smoothing: antialiased;
     background-color: var(--theme);
-    position: relative; /* чтобы ::before лег под контент */
+    position: relative;
     z-index: 0;
 }
 
@@ -226,16 +226,16 @@ body {
 
 /* Полупрозрачные «гиковские» фигурки на фоне */
 body.list::before {
-    content: "";
+    content: ""; /* ВАЖНО! */
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
 
-    opacity: 0.16;                  /* интенсивность узора */
+    opacity: 0.16;
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNDAwIDQwMCI+CiAgPHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9Im5vbmUiLz4KICA8IS0tIG1vbml0b3IgLS0+CiAgPHJlY3QgeD0iNDAiIHk9IjQwIiB3aWR0aD0iODAiIGhlaWdodD0iNTUiIHJ4PSI4IiByeT0iOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMmQzNzQ4IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cmVjdCB4PSI3MCIgeT0iMTAwIiB3aWR0aD0iMjAiIGhlaWdodD0iOCIgcng9IjIiIHJ5PSIyIiBmaWxsPSJub25lIiBzdHJva2U9IiMyZDM3NDgiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwhLS0gY29kZSBicmFja2V0cyAtLT4KICA8cGF0aCBkPSJNMTg1IDYwIEwxNjUgOTAgTDE4NSAxMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJkMzc0OCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8cGF0aCBkPSJNMjE1IDYwIEwyMzUgOTAgTDIxNSAxMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJkMzc0OCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8IS0tIGdlYXItaXNoIGNpcmNsZSAtLT4KICA8Y2lyY2xlIGN4PSIzMjAiIGN5PSI4MCIgcj0iMjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJkMzc0OCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtZGFzaGFycmF5PSIyIDQiLz4KICA8IS0tIHRlcm1pbmFsIGJveCAtLT4KICA8cmVjdCB4PSI0MCIgeT0iMjEwIiB3aWR0aD0iOTAiIGhlaWdodD0iNTUiIHJ4PSI2IiByeT0iNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMmQzNzQ4IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNNTUgMjM1IEw3MCAyNDggTDU1IDI2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMmQzNzQ4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxsaW5lIHgxPSI4MCIgeTE9IjI1OSIgeDI9IjEwNSIgeTI9IjI1OSIgc3Ryb2tlPSIjMmQzNzQ4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gY2xvdWQgLS0+CiAgPHBhdGggZD0iTTI2MCAyNDBjNC0xNCAyNC0xOCAzMi00IDEwLTQgMjIgMyAyMiAxNiAwIDExLTggMTktMTkgMTloLTMzYy0xMCAwLTE4LTgtMTgtMTggMC0xMSA5LTIwIDIwLTEzIiBmaWxsPSJub25lIiBzdHJva2U9IiMyZDM3NDgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPCEtLSBib3R0b20gaWNvbnMgLS0+CiAgPHJlY3QgeD0iMTUwIiB5PSIzMTAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIzOCIgcng9IjYiIHJ5PSI2IiBmaWxsPSJub25lIiBzdHJva2U9IiMyZDM3NDgiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxjaXJjbGUgY3g9IjE3MCIgY3k9IjMzMCIgcj0iNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMmQzNzQ4IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8Y2lyY2xlIGN4PSIxOTAiIGN5PSIzMzAiIHI9IjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJkMzc0OCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGNpcmNsZSBjeD0iMjEwIiBjeT0iMzMwIiByPSI1IiBmaWxsPSJub25lIiBzdHJva2U9IiMyZDM3NDgiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=");
-    background-size: 420px 420px;   /* размер тайла c иконками */
+    background-size: 420px 420px;
     background-repeat: repeat;
     background-position: center;
-    mix-blend-mode: screen;        /* мягко «подсвечивает» фон, не мешая тексту */
+    mix-blend-mode: screen;
 }
