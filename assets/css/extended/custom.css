@@ -1,192 +1,148 @@
 /* ==========================================================================
-   CUSTOM DESIGN FOR ZIIX.RU (HUGO PAPERMOD)
-   Includes: Sticky Header, Compact Home, Grid Layout, Transparent Comments
+   ZIIX.RU DESIGN SYSTEM (HUGO PAPERMOD)
    ========================================================================== */
 
-/* --- 1. СУПЕР-УНИВЕРСАЛЬНАЯ ШАПКА (STICKY HEADER) --- */
+/* --- 1. ШАПКА (STICKY HEADER) --- */
 .header {
     position: sticky;
     top: 0;
     z-index: 50;
-    margin-bottom: 12px !important;
+    margin-bottom: 24px !important;
     background: transparent !important;
     transition: transform 0.25s ease-out;
 }
 
-/* Контейнер навигации с "умным" фоном через ::before */
 .header .nav {
     position: relative;
     max-width: calc(var(--main-width) + var(--gap) * 2);
     margin: 0 auto;
-    padding: 6px 18px;
-    border-radius: 0 0 10px 10px;
+    padding: 8px 20px;
+    border-radius: 0 0 12px 12px;
     border-top: none;
     background: transparent !important;
-    
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--border);
     border-top: none;
     overflow: hidden;
 }
 
-/* Полупрозрачная подложка цвета текущей темы */
 .header .nav::before {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     z-index: -1;
     background-color: var(--theme);
-    opacity: 0.85; 
+    opacity: 0.9;
 }
 
-/* Скрытие шапки при скролле (JS класс) */
-.header.header--hidden {
-    transform: translateY(-110%);
-}
-
+.header.header--hidden { transform: translateY(-110%); }
 .logo { margin-right: auto; }
 #menu { margin-left: auto; }
 
-
-/* --- 2. КОМПАКТНЫЙ БЛОК ПРИВЕТСТВИЯ (FIRST ENTRY) --- */
-.main {
-    margin-top: 20px !important;
-}
+/* --- 2. ГЛАВНАЯ (ПРИВЕТСТВИЕ) --- */
+.main { margin-top: 20px !important; }
 
 .first-entry {
     min-height: auto !important;
-    margin-bottom: 20px !important;
-    padding: 20px !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    margin-bottom: 32px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
 }
 
-.first-entry h1 {
-    margin-top: 0 !important;
-    font-size: 28px !important;
-}
+.first-entry h1 { font-size: 32px !important; margin-bottom: 12px; }
+.first-entry .entry-content { font-size: 18px !important; color: var(--secondary); }
 
-.first-entry .entry-content {
-    margin: 10px 0 !important;
-    font-size: 16px !important;
-}
-
-.first-entry .social-icons {
-    margin-top: 10px !important;
-}
-
-
-/* --- 3. GRID LAYOUT ДЛЯ ПОСТОВ (DESKTOP) --- */
+/* --- 3. СЕТКА ПОСТОВ (GRID) - REFERENCE STYLE --- */
 @media screen and (min-width: 768px) {
     .main {
         display: flex;
         flex-wrap: wrap;
-        gap: 24px; /* Чуть больше воздуха между карточками */
-        align-items: flex-start;
+        gap: 24px;
+        align-items: stretch; /* Растягиваем по высоте */
     }
 
-    /* Приветствие на всю ширину */
-    .first-entry {
-        width: 100%;
-        margin-bottom: 0 !important;
-        flex: 0 0 100%;
-        /* Убираем рамку у приветствия, делаем его чистым текстом */
-        background: transparent !important;
-        border: none !important;
-        padding-left: 0 !important;
-    }
+    .first-entry { flex: 0 0 100%; width: 100%; }
+    .pagination { flex: 0 0 100%; width: 100%; margin-top: 40px; }
 
-    /* Карточки постов */
     .post-entry {
-        width: calc(50% - 12px); /* Половина минус половина gap */
+        /* Размеры */
+        width: calc(50% - 12px);
         margin-bottom: 0 !important;
+        
+        /* Внешний вид карточки */
+        background: var(--entry);
+        border: 1px solid var(--border); /* Или border: none; если хочешь без рамок */
+        border-radius: 16px;
+        padding: 24px;
+        
+        /* Flexbox для перестановки элементов */
         display: flex;
         flex-direction: column;
-        height: 100%;
-        min-height: 320px;
         
-        /* Скругление как на референсе (посильнее) */
-        border-radius: 16px; 
-        
-        /* Убираем явную границу, добавляем легкий фон */
-        border: 1px solid var(--border); /* Или border: none; если хочешь совсем чисто */
-        background: var(--entry);
-        
-        overflow: hidden; /* Чтобы картинка не вылезала */
-        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
     
-    /* Эффект наведения */
     .post-entry:hover {
-        transform: translateY(-6px); /* Всплытие */
-        /* Легкая тень при наведении */
-        box-shadow: 0 12px 24px -10px rgba(0,0,0,0.15); 
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px -10px rgba(0,0,0,0.2);
+        border-color: var(--primary);
     }
 
-    .post-entry .entry-content {
-        flex-grow: 1;
-        padding: 24px; /* Больше отступов внутри */
-    }
+    /* === МАГИЯ ПЕРЕСТАНОВКИ === */
     
+    /* 1. Заголовок (Header) - ставим первым */
     .post-entry .entry-header {
+        order: 1;
         margin-bottom: 12px;
     }
+    
+    /* 2. Текст описания (Content) - ставим вторым */
+    .post-entry .entry-content {
+        order: 2;
+        flex-grow: 1; /* Растягивается, если карточка высокая */
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--secondary);
+        margin-bottom: 16px;
+    }
+    
+    /* 3. Футер (Дата/теги) - ставим в самом низу, если он есть */
+    .post-entry .entry-footer {
+        order: 4;
+        margin-top: auto;
+        font-size: 13px;
+        opacity: 0.7;
+    }
 
-    .pagination {
+    /* 4. Картинка (Cover) - ставим ТРЕТЬЕЙ (между текстом и футером) */
+    .post-entry .entry-cover {
+        order: 3;
+        margin: 0 -24px 16px -24px !important; /* Компенсируем padding родителя */
+        border-radius: 0; /* Внутри карточки прямые края */
+        overflow: hidden;
+    }
+    
+    .post-entry .entry-cover img {
         width: 100%;
-        flex: 0 0 100%;
-        margin-top: 30px;
+        height: 180px; /* Высота картинки */
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+    }
+    
+    .post-entry:hover .entry-cover img {
+        transform: scale(1.03);
+    }
+    
+    /* Типографика заголовков в карточках */
+    .post-entry h2 {
+        font-size: 20px;
+        line-height: 1.3;
+        font-weight: 700;
     }
 }
 
-/* --- 4. КРАСИВЫЕ ОБЛОЖКИ (COVER IMAGES) КАК НА СКРИНЕ --- */
-.post-entry .entry-cover {
-    margin-bottom: 0 !important;
-    overflow: hidden;
-    border-radius: 0; /* Скругление задается родителем (.post-entry) */
-}
-
-/* Сама картинка */
-.post-entry .entry-cover img {
-    width: 100%;
-    height: 200px; /* Чуть выше */
-    object-fit: cover; 
-    transition: transform 0.5s ease;
-}
-
-/* Зум картинки */
-.post-entry:hover .entry-cover img {
-    transform: scale(1.03); /* Очень легкий зум */
-}
-
-
-/* --- 4. КРАСИВЫЕ ОБЛОЖКИ (COVER IMAGES) --- */
-.post-entry .entry-cover {
-    margin-bottom: 0 !important;
-    overflow: hidden;
-    border-radius: var(--radius) var(--radius) 0 0; /* Скругляем верх */
-}
-
-/* Сама картинка */
-.post-entry .entry-cover img {
-    width: 100%;
-    height: 180px; /* Фиксируем высоту для ровной сетки */
-    object-fit: cover; /* Обрезаем лишнее, сохраняя пропорции */
-    transition: transform 0.5s ease;
-}
-
-/* Зум картинки при наведении */
-.post-entry:hover .entry-cover img {
-    transform: scale(1.05);
-}
-
-
-/* --- 5. КОММЕНТАРИИ (GISCUS) --- */
-.giscus, .giscus-frame {
-    /* Убираем фон контейнера, чтобы он не был белым/черным пятном */
-    background: transparent !important;
-    margin-top: 40px;
-}
+/* --- 4. КОММЕНТАРИИ --- */
+.giscus, .giscus-frame { background: transparent !important; margin-top: 40px; }
