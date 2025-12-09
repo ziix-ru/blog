@@ -1,46 +1,83 @@
-/* ===========================
-   ТОЛЬКО ШАПКА (STICKY HEADER)
-   =========================== */
-
-/* Контейнер шапки - прозрачный и липкий */
+/* Липкая шапка (Sticky Header) */
 .header {
+    /* Позиционирование */
     position: sticky;
     top: 0;
     z-index: 50;
-    margin-bottom: 20px !important;
+    
+    /* Отступы */
+    margin-bottom: 12px !important;
     padding-bottom: 0;
-    background: transparent !important; /* Убираем фон самого блока, красим только nav */
-    transition: transform 0.3s ease-out;
+    
+    /* Сам контейнер .header делаем прозрачным */
+    background: transparent !important;
+    
+    /* Анимация скрытия */
+    transition: transform 0.25s ease-out;
 }
 
-/* Внутренний бар навигации - общий стиль */
+/* Оформление внутренней полоски навигации (.nav) */
 .header .nav {
+    /* Ограничиваем ширину, чтобы не расплывалась на 4k мониторах */
     max-width: calc(var(--main-width) + var(--gap) * 2);
     margin: 0 auto;
-    padding: 0 24px;
+    
+    /* Паддинги поменьше, чтобы было аккуратно */
+    padding: 6px 18px;
+    
+    /* Скругление только снизу */
+    border-radius: 0 0 10px 10px;
+    
+    /* Убираем верхнюю границу (она там не нужна, прилипает к краю) */
     border-top: none;
-    border-radius: 0 0 16px 16px; /* Закругление снизу */
-    backdrop-filter: blur(10px);  /* Эффект матового стекла */
+
+    /* == ЦВЕТА ЧЕРЕЗ ПЕРЕМЕННЫЕ PAPERMOD == */
+    
+    /* Фон берем из переменной темы, но добавляем чуть прозрачности */
+    /* Используем --theme (основной фон страницы) */
+    background: var(--theme); 
+    
+    /* Но чтобы работало размытие (backdrop-filter), нам нужен полупрозрачный цвет.
+       Переменная --theme обычно hex (непрозрачный). 
+       Поэтому используем хак с rgba или просто задаем цвет, близкий к теме.
+    */
 }
 
-/* Стили для СВЕТЛОЙ темы (дефолт) */
+/* 
+   Так как CSS-переменные в PaperMod — это HEX (#ffffff, #1d1e20),
+   мы не можем просто добавить им альфа-канал через var().
+   
+   Поэтому сделаем проще: используем селектор body.dark для явного переопределения,
+   но возьмем цвета, ИДЕНТИЧНЫЕ дефолтным цветам PaperMod.
+*/
+
+/* СВЕТЛАЯ ТЕМА (Default) */
 .header .nav {
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid rgba(209, 213, 219, 0.9);
+    /* Белый полупрозрачный */
+    background: rgba(255, 255, 255, 0.85);
+    
+    /* Размытие фона под шапкой */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    /* Тонкая граница */
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Стили для ТЁМНОЙ темы (переопределение) */
+/* ТЁМНАЯ ТЕМА */
 body.dark .header .nav {
-    /* Цвет берем близкий к дефолтному фону PaperMod */
-    background: rgba(29, 30, 32, 0.96); 
-    border: 1px solid rgba(51, 51, 51, 1);
+    /* Цвет #1d1e20 (это дефолтный фон PaperMod dark), но с прозрачностью */
+    background: rgba(29, 30, 32, 0.85);
+    
+    /* Граница чуть светлее фона (как у карточек в PaperMod) */
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Класс для скрытия шапки (JS) */
+/* Класс для скрытия шапки (добавляется JS-ом) */
 .header.header--hidden {
     transform: translateY(-110%);
 }
 
-/* Выравнивание элементов внутри */
+/* Выравнивание лого и меню */
 .logo { margin-right: auto; }
 #menu { margin-left: auto; }
