@@ -5,7 +5,7 @@
     --theme: #000000;
     --entry: #161618;
     --primary: #e5e5e5;
-    --secondary: #9a9ae9;
+    --secondary: #9a9a9e;
     --tertiary: #2f2f33;
     --content: #d1d1d2;
     --code-block-bg: #111111;
@@ -102,37 +102,37 @@ body {
         transform: scale(1.03);
     }
 
-    /* Заголовок + meta: одинаковый паддинг слева/справа */
+    /* Заголовок + meta: очень плотные отступы */
     .post-entry .entry-header {
-        padding: 18px 24px 0 24px;
+        padding: 12px 20px 0 20px;
     }
 
     .post-entry h2 {
-        font-size: 19px;
+        font-size: 18px;
         font-weight: 700;
-        line-height: 1.3;
-        letter-spacing: -0.015em;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
         margin: 0;
         color: var(--content);
     }
     
     .post-entry .entry-meta {
-        font-size: 13px;
+        font-size: 12px;
         color: #8c8c91;
         opacity: 0.75;
         display: flex;
-        gap: 8px;
+        gap: 6px;
         align-items: center;
-        margin-top: 8px;
+        margin-top: 4px;
     }
 
-    /* Текст: тот же паддинг, что у header, + фикс отступ сверху */
+    /* Текст: близко к meta, максимум компактный */
     .post-entry .entry-content {
-        padding: 8px 24px 20px 24px;
-        font-size: 14px;
-        line-height: 1.5;
+        padding: 6px 20px 14px 20px;
+        font-size: 13px;
+        line-height: 1.45;
         color: var(--secondary);
-        max-height: 42px;
+        max-height: 38px;              /* чуть меньше, чем было, ещё компактнее */
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -177,29 +177,29 @@ body {
     }
     
     .post-entry .entry-header {
-        padding: 16px 18px 0 18px;
+        padding: 14px 16px 0 16px;
     }
     
     .post-entry h2 {
-        font-size: 18px;
-        line-height: 1.3;
+        font-size: 17px;
+        line-height: 1.25;
         margin: 0;
     }
     
     .post-entry .entry-meta {
-        font-size: 13px;
+        font-size: 12px;
         color: #8c8c91;
         opacity: 0.75;
         display: flex;
         gap: 6px;
         align-items: center;
-        margin-top: 6px;
+        margin-top: 4px;
     }
     
     .post-entry .entry-content {
-        padding: 6px 18px 16px 18px;
-        font-size: 14px;
-        line-height: 1.5;
+        padding: 6px 16px 14px 16px;
+        font-size: 13px;
+        line-height: 1.45;
     }
     
     .post-entry .entry-content p {
