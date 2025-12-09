@@ -75,7 +75,7 @@ body {
         display: flex;
         flex-direction: column;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-        padding: 14px 16px 14px 16px;   /* ЕДИНЫЙ ПАДДИНГ КАРТОЧКИ */
+        padding: 14px 16px 14px 16px;   /* единый паддинг карточки */
     }
 
     .post-entry:hover {
@@ -83,7 +83,7 @@ body {
         box-shadow: 0 10px 24px -6px rgba(0,0,0,0.4);
     }
 
-    /* Картинка: та же левая граница, что и текст */
+    /* Картинка 16:9, выровнена по тому же левому краю, что и текст */
     .post-entry .entry-cover {
         margin: 0 0 10px 0;
         border-radius: 12px;
@@ -92,7 +92,7 @@ body {
     
     .post-entry .entry-cover img {
         width: 100%;
-        height: 180px;
+        aspect-ratio: 16 / 9;
         object-fit: cover;
         display: block;
         transition: transform 0.3s ease;
@@ -102,7 +102,6 @@ body {
         transform: scale(1.02);
     }
 
-    /* Заголовок и meta без внутренних паддингов — выравнены по паддингу карточки */
     .post-entry .entry-header {
         padding: 0;
         margin: 0 0 2px 0;
@@ -127,13 +126,12 @@ body {
         margin-top: 4px;
     }
 
-    /* Текст: начинается ровно там же, где и картинка/заголовок */
+    /* Текст: чуть крупнее, без max-height, clamp по 2 ПОЛНЫМ строкам */
     .post-entry .entry-content {
-        padding: 6px 0 0 0;
-        font-size: 13px;
-        line-height: 1.45;
+        padding: 8px 0 0 0;
+        font-size: 14px;
+        line-height: 1.5;
         color: var(--secondary);
-        max-height: 38px;
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -175,9 +173,10 @@ body {
     }
     
     .post-entry .entry-cover img {
-        height: 180px;
-        object-fit: cover;
         width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
     }
     
     .post-entry .entry-header {
@@ -202,9 +201,13 @@ body {
     }
     
     .post-entry .entry-content {
-        padding: 6px 0 0 0;
-        font-size: 13px;
-        line-height: 1.45;
+        padding: 8px 0 0 0;
+        font-size: 14px;
+        line-height: 1.5;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
     
     .post-entry .entry-content p {
